@@ -1,0 +1,14 @@
+# Coletando informações sobre BIOS, processador e arquitetura do sistema do PC
+
+cls
+$InfoBIOS = Get-CimInstance -ClassName Win32_BIOS 
+
+$InfoProcessor = Get-CimInstance -ClassName Win32_Processor | Select-Object -ExcludeProperty "CIM*" 
+
+$InfoSystemType = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -Property SystemType 
+
+$AllInfos = @($InfoBIOS,$InfoProcessor,$InfoSystemType)
+
+Write-Output $AllInfos | Out-File -FilePath .\InfoPC.txt
+
+Write-Host = "FIM"
